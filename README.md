@@ -24,6 +24,8 @@ The API will be running at `http://localhost:3000`.
 The API is documented using Swagger. You can access the interactive documentation at:
 - Swagger UI: `http://localhost:3000/api-docs`
 
+![Alt text](/images/swagger.png?raw=true "Swagger UI")
+
 To explore the API:
 1. Start the server using `npm start`
 2. Open your browser and navigate to `http://localhost:3000/api-docs`
