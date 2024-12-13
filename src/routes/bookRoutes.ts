@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import BookController from '../controllers/bookController';
 import HealthController from '../controllers/healthController';
-import { validateBook } from '../middleware/validator';
 
 const router = Router();
 const bookController = new BookController();

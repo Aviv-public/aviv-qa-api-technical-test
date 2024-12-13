@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-import { Book, UpdateBookDTO } from '../models/book';
+import { Request, Response } from 'express';
+import { UpdateBookDTO } from '../models/book';
 import BookService from '../services/bookService';
 
 class BookController {
-    private bookService: BookService;
+    private readonly bookService: BookService;
 
     constructor() {
         this.bookService = new BookService();
