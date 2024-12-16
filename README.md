@@ -49,7 +49,41 @@ npm test
 ```
 
 ## Submitting Tests
-QA Engineers, responsible for ensuring the quality and functionality of the API, can submit their test cases by following these steps:
+QA Engineers, responsible for ensuring the quality and functionality of the API, should follow test automation best practices including:
+
+1. **Page Object Pattern**
+   - Create separate classes for each API endpoint
+   - Encapsulate API calls and assertions
+   - Maintain clean separation of concerns
+
+2. **Data-Driven Testing**
+   - Use test data providers
+   - Cover multiple scenarios and edge cases
+   - Include both valid and invalid test cases
+
+3. **Test Flow Requirements**
+   - Implement end-to-end flows (e.g., CRUD operations)
+   - Chain API calls using previous responses:
+     ```typescript
+     // Example flow
+     const book = await createBook(testData);
+     const retrieved = await getBook(book.id);
+     const updated = await updateBook(book.id, newData);
+     await deleteBook(book.id);
+     ```
+   - Validate response schemas and status codes
+
+4. **Coverage Requirements**
+   - Cover all endpoints in the API
+   - Include positive and negative scenarios
+
+5. **Technical Stack** (Optional)
+   - Language: TypeScript
+   - Test Framework: Jest
+   - API Testing Libraries:
+     - `supertest` - HTTP assertions
+     - `@faker-js/faker` - Test data generation
+     - `joi` - Schema validation
 
 1. **Fork the repository:**
     Go to the repository on GitHub and click the "Fork" button to create a copy of the repository in your own GitHub account.
