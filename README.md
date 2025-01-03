@@ -8,7 +8,7 @@ To install and run the API, follow these steps:
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/mnabil/book-management-api.git
+    git clone https://github.com/Aviv-public/aviv-qa-api-technical-test.git
     cd book-management-api
     ```
 
