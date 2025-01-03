@@ -15,11 +15,9 @@ A simple REST API for managing books.
     ```bash
     cp .env.example .env
     ```
-    Configure your [.env](http://_vscodecontentref_/0) file with appropriate values:
+    Configure your .env file with appropriate values:
     ```
-    PORT=3000
     API_KEY=your-secure-api-key-here
-    NODE_ENV=development
     ```
 
 3. **Install dependencies and start:**
@@ -29,6 +27,7 @@ A simple REST API for managing books.
     ```
 
 The API will be running at `http://localhost:3000`
+
 The API documentation will be available at `http://localhost:3000/api-docs`
 
 ## Authentication
@@ -63,7 +62,7 @@ The API provides the following endpoints:
 - FETCH /api/books/:id - Fetch a book
 - DELETE /api/books/:id - Delete a book
 
-Note: All /api/* endpoints require authentication via x-api-key header. ```
+Note: All /api/* endpoints require authentication via x-api-key header.
 
 ## Running Tests
 
