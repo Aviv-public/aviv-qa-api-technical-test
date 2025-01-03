@@ -33,6 +33,23 @@ class BookService {
         return this.books[index];
     }
 
+    public patchBook(id: number, updates: Partial<Book>): Book | null {
+        const index = this.books.findIndex(book => book.id === id);
+        if (index === -1) return null;
+
+        // Only update the fields that are provided
+        const updatedBook = {
+            ...this.books[index],  // Keep existing book data
+            ...updates            // Override only the provided fields
+        };
+
+        // Ensure id remains unchanged
+        updatedBook.id = this.books[index].id;
+        
+        this.books[index] = updatedBook;
+        return updatedBook;
+    }
+
     public getBookById(id: number): Book | null {
         console.log('Getting book with id:', id);
         const book = this.books.find(b => b.id === id);

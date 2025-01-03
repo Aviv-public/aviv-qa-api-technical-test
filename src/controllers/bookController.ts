@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UpdateBookDTO } from '../models/book';
+import { UpdateBookDTO, Book } from '../models/book';
 import BookService from '../services/bookService';
 
 class BookController {
@@ -35,6 +35,24 @@ class BookController {
         const updateData: UpdateBookDTO = req.body;
         const { title, author, publishedDate } = updateData;
         const updatedBook = this.bookService.updateBook(id, title, author, publishedDate, updateData);
+        if (updatedBook) {
+            res.status(200).json(updatedBook);
+        } else {
+            res.status(404).json({ message: 'Book not found' });
+        }
+    };
+
+    public patchBook = async (req: Request, res: Response): Promise<void> => {
+        const id = parseInt(req.params.id);
+        const updates: Partial<Book> = req.body;
+
+        // Validate that at least one field is provided
+        if (Object.keys(updates).length === 0) {
+            res.status(400).json({ message: 'At least one field must be provided for update' });
+            return;
+        }
+
+        const updatedBook = this.bookService.patchBook(id, updates);
         if (updatedBook) {
             res.status(200).json(updatedBook);
         } else {

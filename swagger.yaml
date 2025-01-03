@@ -123,6 +123,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    patch:
+      summary: Partially update a book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                publishedDate:
+                  type: string
+              example:
+                title: "The Great Gatsby"
+                author: "F. Scott Fitzgerald"
+                publishedDate: "1925-04-10T00:00:00.000Z"
+      responses:
+        '200':
+          description: Book updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
   /api/health:
     get:
@@ -143,6 +180,11 @@ paths:
                     format: date-time
 
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
   schemas:
     BookInput:
       type: object
@@ -179,3 +221,6 @@ components:
         error:
           type: string
           example: Error message
+
+security:
+  - ApiKeyAuth: []

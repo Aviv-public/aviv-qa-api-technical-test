@@ -5,6 +5,11 @@ import path from 'path';
 import { setBookRoutes } from './routes/bookRoutes';
 import { errorHandler } from './middleware/errorHandler';
 import { loggerMiddleware } from './utils/logger';
+import { authMiddleware } from './middleware/auth';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -14,6 +19,9 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));
 
 app.use(express.json());
 app.use(loggerMiddleware);
+
+// Apply auth middleware to all routes except documentation
+app.use('/api', authMiddleware);
 
 // Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

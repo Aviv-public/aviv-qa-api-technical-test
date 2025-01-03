@@ -1,23 +1,43 @@
 # Book Management API
 
-This project is a Book Management API that allows users to manage a collection of books. It provides endpoints to create, read, update, and delete books.
+A simple REST API for managing books.
 
-## Installation
-
-To install and run the API, follow these steps:
+## Getting Started
 
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/Aviv-public/aviv-qa-api-technical-test.git
+
     cd aviv-qa-api-technical-test
     ```
 
-2. **Install dependencies:**
+2. **Setup environment:**
     ```bash
-    npm install
+    cp .env.example .env
+    ```
+    Configure your [.env](http://_vscodecontentref_/0) file with appropriate values:
+    ```
+    PORT=3000
+    API_KEY=your-secure-api-key-here
+    NODE_ENV=development
     ```
 
-The API will be running at `http://localhost:3000`.
+3. **Install dependencies and start:**
+    ```bash
+    npm install
+    npm run start
+    ```
+
+The API will be running at `http://localhost:3000`
+The API documentation will be available at `http://localhost:3000/api-docs`
+
+## Authentication
+
+All API endpoints (except documentation) require authentication using an API key header:
+
+```bash
+x-api-key: default-secure-api-key-2024
+```
 
 ## API Documentation
 
@@ -31,15 +51,19 @@ To explore the API:
 2. Open your browser and navigate to `http://localhost:3000/api-docs`
 3. Use the Swagger UI to check the endpoints and view request/response schemas
 
-## API Endpoints
+## Available API Endpoints
 
-- `GET /books` - Retrieve a list of all books
-- `GET /books/:id` - Retrieve a single book by ID
-- `POST /books` - Create a new book
-- `PUT /books/:id` - Update a book by ID
-- `DELETE /books/:id` - Delete a book by ID
-- `GET /health` - Check the health of the API
+The API provides the following endpoints:
 
+- GET / - Welcome page
+- GET /api/books - List all books
+- POST /api/books - Create a new book
+- GET /api/books/:id - Get a book by ID
+- PUT /api/books/:id - Update a book
+- FETCH /api/books/:id - Fetch a book
+- DELETE /api/books/:id - Delete a book
+
+Note: All /api/* endpoints require authentication via x-api-key header. ```
 
 ## Running Tests
 
@@ -84,6 +108,8 @@ QA Engineers, responsible for ensuring the quality and functionality of the API,
      - `supertest` - HTTP assertions
      - `@faker-js/faker` - Test data generation
      - `joi` - Schema validation
+
+## Contributing
 
 1. **Fork the repository:**
     Go to the repository on GitHub and click the "Fork" button to create a copy of the repository in your own GitHub account.

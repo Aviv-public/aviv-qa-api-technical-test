@@ -42,4 +42,14 @@ describe('BookService', () => {
         const foundBook = await bookService.getBookById(createdBook.id);
         expect(foundBook).toBeNull();
     });
+
+    it('should partially update a book', () => {
+        const original = bookService.createBook('Original Title', 'Original Author', '2023-01-01');
+        const updated = bookService.patchBook(original.id, { title: 'New Title' });
+        
+        expect(updated).not.toBeNull();
+        expect(updated!.title).toBe('New Title');
+        expect(updated!.author).toBe('Original Author');    // unchanged
+        expect(updated!.publishedDate).toBe('2023-01-01'); // unchanged
+    });
 });
