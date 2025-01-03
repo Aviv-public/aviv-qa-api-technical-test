@@ -1,6 +1,8 @@
 // src/middleware/auth.ts
 import { Request, Response, NextFunction } from 'express';
 import { logger } from '../utils/logger';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export interface AuthenticatedRequest extends Request {
     auth?: {
@@ -8,7 +10,7 @@ export interface AuthenticatedRequest extends Request {
     }
 }
 
-const API_KEY = process.env.API_KEY ?? 'default-secure-api-key-2024';
+const API_KEY = process.env.API_KEY || 'default-secure-api-key-2024';
 
 export const authMiddleware = (
     req: Request,
