@@ -90,8 +90,8 @@ QA Engineers, responsible for ensuring the quality and functionality of the API,
 
 2. **Clone your forked repository:**
     ```bash
-    git clone https://github.com/your-username/book-management-api.git
-    cd book-management-api
+    git clone https://github.com/username/aviv-qa-api-technical-test.git
+    cd aviv-qa-api-technical-test
     ```
 
 3. **Create a new branch:**
