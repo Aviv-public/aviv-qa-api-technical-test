@@ -13,7 +13,7 @@ export interface AuthenticatedRequest extends Request {
 const API_KEY = process.env.API_KEY || 'default-secure-api-key-2024';
 
 export const authMiddleware = (
-    req: Request,
+    req: AuthenticatedRequest,
     res: Response,
     next: NextFunction
 ): void => {
@@ -25,6 +25,6 @@ export const authMiddleware = (
         return;
     }
 
-    (req as AuthenticatedRequest).auth = { isAuthenticated: true };
+    req.auth = { isAuthenticated: true };
     next();
 };

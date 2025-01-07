@@ -1,4 +1,6 @@
-import express from 'express';
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import path from 'path';
@@ -11,39 +13,53 @@ import dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT ?? 3000;
-
 // Load Swagger document
 const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));
 
-app.use(express.json());
-app.use(loggerMiddleware);
+class App {
+    private app: Express;
 
-// Apply auth middleware to all routes except documentation
-app.use('/api', authMiddleware);
-
-// Serve Swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// Add a root path handler
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to Book Management API',
-    endpoints: {
-      docs: '/api-docs',
-      books: '/api/books',
-      health: '/api/health'
+    constructor() {
+        this.app = express();
+        this.middleware();
+        this.routes();
     }
-  });
-});
 
-setBookRoutes(app);
-app.use(errorHandler);
+    private middleware(): void {
+        this.app.use(cors());
+        this.app.use(bodyParser.json());
+        this.app.use(loggerMiddleware);
+        this.app.use('/api', authMiddleware);
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        this.app.use(errorHandler); // Move error handler here
+    }
+
+    private routes(): void {
+        setBookRoutes(this.app); // Use the setup function instead of direct router usage
+
+        this.app.get('/', (req, res) => {
+            res.json({
+                message: 'Welcome to Book Management API',
+                endpoints: {
+                    docs: '/api-docs',
+                    books: '/api/books',
+                    health: '/api/health'
+                }
+            });
+        });
+    }
+
+    public getApp(): Express {
+        return this.app;
+    }
+}
+
+const app = new App().getApp();
+const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(`API documentation available at http://localhost:${PORT}/api-docs`);
+    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`API documentation available at http://localhost:${PORT}/api-docs`);
 });
 
 export default app;

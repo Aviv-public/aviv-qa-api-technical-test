@@ -10,63 +10,87 @@ class BookController {
     }
 
     public createBook = async (req: Request, res: Response): Promise<void> => {
-        const { title, author, publishedDate } = req.body;
-        const newBook = this.bookService.createBook(title, author, publishedDate);
-        res.status(201).json(newBook);
+        try {
+            const { title, author, publishedDate } = req.body;
+            const newBook = this.bookService.createBook(title, author, publishedDate);
+            res.status(201).json(newBook);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     };
 
     public getBooks = async (req: Request, res: Response): Promise<void> => {
-        const books = this.bookService.getBooks();
-        res.status(200).json(books);
+        try {
+            const books = this.bookService.getBooks();
+            res.status(200).json(books);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     };
 
     public getBookById = async (req: Request, res: Response): Promise<void> => {
-        const id = parseInt(req.params.id);
-        const book = this.bookService.getBookById(id);
-        if (book) {
-            res.status(200).json(book);
-        } else {
-            res.status(404).json({ message: 'Book not found' });
+        try {
+            const id = parseInt(req.params.id);
+            const book = this.bookService.getBookById(id);
+            if (book) {
+                res.status(200).json(book);
+            } else {
+                res.status(404).json({ message: 'Book not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     };
 
     public updateBook = async (req: Request, res: Response): Promise<void> => {
-        const id = parseInt(req.params.id);
-        const updateData: UpdateBookDTO = req.body;
-        const { title, author, publishedDate } = updateData;
-        const updatedBook = this.bookService.updateBook(id, title, author, publishedDate, updateData);
-        if (updatedBook) {
-            res.status(200).json(updatedBook);
-        } else {
-            res.status(404).json({ message: 'Book not found' });
+        try {
+            const id = parseInt(req.params.id);
+            const updateData: UpdateBookDTO = req.body;
+            const { title, author, publishedDate } = updateData;
+            const updatedBook = this.bookService.updateBook(id, title, author, publishedDate, updateData);
+            if (updatedBook) {
+                res.status(200).json(updatedBook);
+            } else {
+                res.status(404).json({ message: 'Book not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     };
 
     public patchBook = async (req: Request, res: Response): Promise<void> => {
-        const id = parseInt(req.params.id);
-        const updates: Partial<Book> = req.body;
+        try {
+            const id = parseInt(req.params.id);
+            const updates: Partial<Book> = req.body;
 
-        // Validate that at least one field is provided
-        if (Object.keys(updates).length === 0) {
-            res.status(400).json({ message: 'At least one field must be provided for update' });
-            return;
-        }
+            // Validate that at least one field is provided
+            if (Object.keys(updates).length === 0) {
+                res.status(400).json({ message: 'At least one field must be provided for update' });
+                return;
+            }
 
-        const updatedBook = this.bookService.patchBook(id, updates);
-        if (updatedBook) {
-            res.status(200).json(updatedBook);
-        } else {
-            res.status(404).json({ message: 'Book not found' });
+            const updatedBook = this.bookService.patchBook(id, updates);
+            if (updatedBook) {
+                res.status(200).json(updatedBook);
+            } else {
+                res.status(404).json({ message: 'Book not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     };
 
     public deleteBook = async (req: Request, res: Response): Promise<void> => {
-        const id = parseInt(req.params.id);
-        const deleted = this.bookService.deleteBook(id);
-        if (deleted) {
-            res.status(204).send();
-        } else {
-            res.status(404).json({ message: 'Book not found' });
+        try {
+            const id = parseInt(req.params.id);
+            const deleted = this.bookService.deleteBook(id);
+            if (deleted) {
+                res.status(204).send();
+            } else {
+                res.status(404).json({ message: 'Book not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     };
 }
