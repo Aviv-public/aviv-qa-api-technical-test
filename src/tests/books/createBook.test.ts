@@ -4,14 +4,6 @@ import { AUTHOR_REQUIRED_STRING, PUBLISHED_DATE_REQUIRED_VALID, TITLE_REQUIRED_S
 import { singleBookSchema, errorSchema } from '../schemas/bookSchema';
 
 describe('[POST] /api/books (Create Book)', () => {
-    afterAll(async () => {
-        const response = await BookApi.getAllBooks();
-        const books = response.body;
-        for (const book of books) {
-            await BookApi.deleteBook(book.id.toString());
-        }
-    });
-
     it('should create a book with valid data and return 201', async () => {
         const validData = generateBookData();
         const response = await BookApi.createBook(validData);
