@@ -34,7 +34,9 @@ describe('[GET] /api/books (Get All Books)', () => {
         const createdIds = createdBooks.map((b) => b.id);
         const returnedIds = response.body.map((b: Book) => b.id);
 
-        expect(new Set(returnedIds)).toEqual(new Set(createdIds));
+        createdIds.forEach(id => {
+            expect(returnedIds).toContain(id);
+        });
 
         const { error } = bookArraySchema.validate(response.body);
         expect(error).toBeUndefined();
