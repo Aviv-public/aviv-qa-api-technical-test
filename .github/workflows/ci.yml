@@ -1,0 +1,53 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      API_KEY: ${{ secrets.API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start server
+        run: |
+          nohup npm run start > server.log 2>&1 &
+          echo $! > server.pid
+        continue-on-error: false
+
+      - name: Wait for server
+        run: npx wait-on http-get://localhost:3000/api/health
+
+      - name: Run tests (excluding 'empty')
+        run: npx jest --testNamePattern="^(?!.*empty).*"
+
+      - name: Run tests (only 'empty')
+        run: npx jest --testNamePattern="empty"
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1.9.1
+        if: always()
+        with:
+          name: API Test Report
+          path: ./test-results/junit.xml
+          reporter: java-junit
+
+      - name: Upload Server Logs
+        if: failure()
+        uses: actions/upload-artifact@v4.2.0
+        with:
+          name: server-logs
+          path: server.log
+
+      - name: Stop server
+        if: always()
+        run: |
+          kill $(cat server.pid) || echo "Server already stopped"
+          sleep 5

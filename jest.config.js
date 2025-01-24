@@ -12,4 +12,6 @@ module.exports = {
     '!src/**/*.d.ts',
     '!src/**/index.ts',
   ],
+  setupFiles: ['./jest.setup.ts'],
+  reporters: [['jest-junit', { outputDirectory: 'test-results' }]],
 };
