@@ -22,9 +22,6 @@ jobs:
           echo $! > server.pid
         continue-on-error: false
 
-      - name: Wait for server
-        run: npx wait-on http-get://localhost:3000/api/health
-
       - name: Run tests (excluding 'empty')
         run: npx jest --testNamePattern="^(?!.*empty).*"
 
