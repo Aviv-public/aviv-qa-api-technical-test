@@ -6,7 +6,6 @@ let bookId: string;
 describe('Book API Tests', () => {
   it('should create a new book', async () => {
     const bookData = generateBookData();
-    console.log(bookData);
     const response = await createBook(bookData);
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
