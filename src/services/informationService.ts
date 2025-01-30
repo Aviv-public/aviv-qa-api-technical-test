@@ -12,7 +12,6 @@ class InformationService {
             }
         };
     }
-
 }
 
 export default InformationService;
