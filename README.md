@@ -17,8 +17,9 @@ A simple REST API for managing books.
     ```
     Configure your .env file with appropriate values:
     ```
-    API_KEY=your-secure-api-key-here
+    API_KEY=[YOUR_API_KEY_HERE]
     ```
+**Hint:** You can use any API_KEY but make sure that you add it in the `.env` file before start the API server.  
 
 3. **Install dependencies and start:**
     ```bash
@@ -35,7 +36,7 @@ The API documentation will be available at `http://localhost:3000/api-docs`
 All API endpoints (except documentation) require authentication using an API key header:
 
 ```bash
-x-api-key: default-secure-api-key-2024
+x-api-key: [YOUR_API_KEY]
 ```
 
 ## API Documentation
