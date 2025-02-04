@@ -14,20 +14,22 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "swagger-ui-express": "^5.0.1",
-    "typescript": "^4.4.3",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.4.0",
     "@types/express": "^4.17.21",
-    "@types/jest": "^27.0.1",
+    "@types/jest": "^27.5.2",
     "@types/node": "^16.0.0",
     "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.7",
     "@types/yamljs": "^0.2.34",
-    "jest": "^27.0.6",
+    "jest": "^27.5.1",
+    "joi": "^17.13.3",
     "supertest": "^7.0.0",
-    "ts-jest": "^27.0.6",
-    "ts-node": "^10.0.0"
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.9.5"
   },
   "author": "Moataz Nabil",
   "license": "MIT"
