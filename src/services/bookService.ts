@@ -29,7 +29,7 @@ class BookService {
             ...this.books[index],
             ...bookData
         };
-        
+        console.log('Updated Book:', this.books[index]);
         return this.books[index];
     }
 
