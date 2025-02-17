@@ -7,6 +7,7 @@ import { DeleteBookPage } from './page/deleteBookPage';
 import { PutBookPage } from './page/putBookPage';
 import { PatchBookPage } from './page/patchBookPage';
 import { HealthPage } from './page/getHealth';
+import { GetWelcomePage } from './page/getWelcomePage';
 
 
 describe('E2E tests', ()=>{
@@ -17,7 +18,7 @@ describe('E2E tests', ()=>{
     let patchBookPage: PatchBookPage;
     let putBookPage: PutBookPage;
     let getHealthPage: HealthPage;
-
+    let getWelcomePage: GetWelcomePage;
      
 
     beforeEach(async () => {
@@ -28,6 +29,7 @@ describe('E2E tests', ()=>{
         patchBookPage = new PatchBookPage();
         putBookPage = new PutBookPage();
         getHealthPage = new HealthPage();
+        getWelcomePage = new GetWelcomePage();
         let healthCheck = await getHealthPage.getHealthCheck();
         expect(healthCheck.statusCode).toBe(200);
     });
@@ -131,5 +133,10 @@ describe('E2E tests', ()=>{
       let response = await getHealthPage.getHealthCheck();
       expect(response.statusCode).toBe(200);
       expect(response.body.status).toBe('OK');
+
+      test("Welcome page test", async () => {
+          const response = await getWelcomePage.getWelcome();
+          expect(response.statusCode).toBe(200);
+      })
     })
 })
