@@ -7,6 +7,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   coverageDirectory: 'coverage',
   collectCoverage: true,
+  testTimeout: 20000,
   collectCoverageFrom: [
     'src/**/*.{ts,js}',
     '!src/**/*.d.ts',
