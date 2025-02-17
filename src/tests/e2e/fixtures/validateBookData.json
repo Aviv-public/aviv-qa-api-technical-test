@@ -1,0 +1,34 @@
+[
+    {
+        "body": {
+            "title": "",
+            "author": "Test Author",
+            "publishedDate": "2024-05-15T01:13:47.757Z"
+
+        },
+        "message": "Title is required and must be a string",
+        "status": 400
+    },
+
+    {
+        "body": {
+            "title": "Test Title",
+            "author": "",
+            "publishedDate": "'2024-05-15T01:13:47.757Z"
+
+        },
+        "message": "Author is required and must be a string",
+        "status": 400
+    },
+
+    {
+        "body": {
+            "title": "Test Title",
+            "author": "Test Author",
+            "publishedDate": ""
+
+        },
+        "message": "Published date is required and must be a valid date",
+        "status": 400
+    }
+]
